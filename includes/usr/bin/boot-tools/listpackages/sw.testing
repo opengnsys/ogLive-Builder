@@ -10,10 +10,10 @@ install grub-efi-amd64-bin
 install grub-efi-ia32-bin
 install grub-pc-bin
 ############# OGAgent
-install libxss1
-install python-prctl
-install python-six
-install python-requests
+#install libxss1
+#install python-prctl
+#install python-six
+#install python-requests
 ##############
 install fusioninventory-agent
 install nvme-cli

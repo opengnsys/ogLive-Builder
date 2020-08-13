@@ -5,4 +5,4 @@ install cifs-utils
 install smbclient 
 install open-iscsi 
 install openssh-server 
-install bittornado 
+#install bittornado 	# ogLive anterior a Ubuntu 20.04

@@ -8,7 +8,7 @@ export LANG=C
 
 #ADV
 #Desactivamos upstart
-dpkg-divert --local --rename --add /sbin/initctl 
+dpkg-divert --local --rename --add /sbin/initctl
 ln -s /bin/true /sbin/initctl
 #TEST desactivamos upstart
 #apt-get update; apt-get install --no-install-recommends dbus; dbus-uuidgen > /var/lib/dbus/machine-id; dpkg-divert --local --rename --add /sbin/initctl; ln -s /bin/true /sbin/initctl
@@ -36,20 +36,16 @@ OGCLIENTCFG=${OGCLIENTCFG:-/tmp/ogclient.cfg}
 [ -f $OGCLIENTCFG ] && source $OGCLIENTCFG
 OSRELEASE=${OSRELEASE:-$(uname -r)}
 # Instalar Kernel firmado del repositorio de paquetes.
-apt-get -y --force-yes install linux-image-${OSRELEASE} linux-headers-${OSRELEASE} dkms shim-signed
-apt-get -y --force-yes install linux-modules-${OSRELEASE} linux-modules-extra-${OSRELEASE} 2>/dev/null
+apt-get -y install linux-image-${OSRELEASE} linux-headers-${OSRELEASE} dkms shim-signed
+apt-get -y install linux-modules-${OSRELEASE} linux-modules-extra-${OSRELEASE} 2>/dev/null
 
 # Valores para paquetes interactivos.
 cat << EOT | debconf-set-selections --
-console-data console-data/keymap/full select es
-console-data console-data/keymap/policy select Select keymap from full list
-davfs2 davfs2/suid_file boolean false
 kexec-tools kexec-tools/load_kexec boolean true
 openssh-server openssh-server/permit-root-login boolean true
 refind refind/install_to_esp boolean false
 EOT
-apt-get -y install sshfs console-data kexec-tools $PKGS32
-#apt-get -y install davfs2
+apt-get -y install sshfs kexec-tools $PKGS32
 
 #comenzamos con la instalación de los paquetes a instalar.
 for group in `find /usr/bin/boot-tools/listpackages/ -name sw.*`
@@ -58,7 +54,7 @@ do
 	for package in ` awk /^install/'{print $2}' $group `
 	do
 		echo -n $package
-		apt-get -y --force-yes  install $package &>/dev/null 
+		apt-get -y install $package &>/dev/null
 		RETVAL=$?
 		if [ $RETVAL == 0 ]
 		then
@@ -86,7 +82,7 @@ while read -e mod vers; do
 	fi
 done < <(dkms status 2>/dev/null | awk -F, '$3~/added/ {print $1,$2}')
 
-#Activamos el hook del oginitrd.img 
+#Activamos el hook del oginitrd.img
 mv /etc/initramfs-tools/oghooks /etc/initramfs-tools/hooks/
 
 # Dejamos el mtab como al principio
@@ -97,7 +93,7 @@ echo "   " > /etc/mtab
 #TEST
 #apt-get install localepurge
 #localepurge
-#rm /var/lib/dbus/machine-id; rm /sbin/initctl; dpkg-divert --rename --remove /sbin/initctl; 
+#rm /var/lib/dbus/machine-id; rm /sbin/initctl; dpkg-divert --rename --remove /sbin/initctl;
 #FIN ADV
 
 apt-get clean

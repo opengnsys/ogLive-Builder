@@ -5,7 +5,7 @@ install fbset
 install gdebi-core
 install bash-static
 install busybox-static
-install console-data
+#install console-data	# ogLive anterior a Ubuntu 20.04
 install locales
 install lshw 
 install gawk 

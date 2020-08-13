@@ -10,9 +10,9 @@
 #@date    2011/08/03
 #*/
 
- #mkdir -p /tmp/opengnsys_installer/opengnsys
- #svn export https://opengnsys.es/svn/branches/version1.1/client /tmp/opengnsys_installer/opengnsys
 
+BRANCH="branches/master"
+svn export --force https://github.com/opengnsys/OpenGnsys/$BRANCH/client /tmp/opengnsys_installer/opengnsys/client || exit 1
 
 #Variables
 TYPECLIENT="${1:-host}"
@@ -50,7 +50,7 @@ echo "FASE 2 - Instalación de software adicional."
 apt-get update
 [ -n "$(apt-cache search gpxe)" ] && PXEPKG="gpxe"
 [ -n "$(apt-cache search ipxe)" ] && PXEPKG="ipxe"
-apt-get -y --force-yes install debootstrap subversion schroot squashfs-tools syslinux genisoimage $PXEPKG qemu lsof
+apt-get -y install debootstrap subversion schroot squashfs-tools syslinux genisoimage $PXEPKG qemu qemu-utils lsof
 ###################################################################3
 echo "FASE 3 - Creación del Sistema raiz RootFS (Segundo Sistema archivos (img)) "
 echo "Fase 3.1 Generar y formatear el disco virtual. Generar el dispositivo loop."
@@ -77,7 +77,7 @@ chmod +x /tmp/boot-tools/*.sh
 # Incluir revisión.
 sed -i "1 s/$/ $GITRELEASE ($OSRELEASE)/" ${BTDIR}/includes/etc/initramfs-tools/scripts/VERSION.txt
 # En Ubuntu 13.04+ es necesario matar proceso de "udev" antes de desmontar.
-umount $BTROOTFSMNT 2>/dev/null || (kill -9 $(lsof -t $BTROOTFSMNT); umount $BTROOTFSMNT 2>/dev/null)
+umount $BTROOTFSMNT 2>/dev/null || (kill -9 $(lsof -t $BTROOTFSMNT); umount $BTROOTFSMNT) 2>/dev/null
 schroot -p -c IMGogclient -- /tmp/boot-tools/boottoolsFsOpengnsys.sh 
 ############################################################################################
 echo "FASE 6 - Instalar software"

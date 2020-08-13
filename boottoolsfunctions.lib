@@ -137,6 +137,13 @@ case "${1,,}" in
 		OSARCH="amd64"
 		OSHTTP="http://es.archive.ubuntu.com/ubuntu/"
 		;;
+	focal) 	# ogLive 1.2.0-rc1 basado en Ubuntu 20.04 y Kernel 5.4.
+		OSDISTRIB="ubuntu"
+		OSCODENAME="focal"
+		OSRELEASE="5.4.0-42-generic"
+		OSARCH="amd64"
+		OSHTTP="http://es.archive.ubuntu.com/ubuntu/"
+		;;
 	host)	# ogLive basado en la distribución del servidor.
 		OSDISTRIB=$(lsb_release -is)
 		OSCODENAME=$(lsb_release -cs)

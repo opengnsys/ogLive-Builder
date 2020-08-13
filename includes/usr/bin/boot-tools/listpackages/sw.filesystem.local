@@ -3,7 +3,7 @@ install squashfs-tools
 install unionfs-fuse
 #install drbl-ntfsprogs		# Eliminado
 install ntfs-3g 
-install ntfs-config
+#install ntfs-config		# ogLive anterior a Ubuntu 20.04
 install dosfstools 
 install fatresize
 install exfat-utils
@@ -11,7 +11,8 @@ install dmraid
 install dmsetup 
 install lvm2 
 install e2fsprogs
-install btrfs-tools
+#install btrfs-tools		# ogLive anterior a Ubuntu 20.04
+install btrfs-progs		# ogLive a partir de Ubuntu 20.04
 install jfsutils 
 install reiserfsprogs
 install reiser4progs
@@ -25,8 +26,7 @@ install vmfs-tools
 #install ufsutils		# ogLive anterior a Ubuntu 14.04
 #install zfsutils		# ogLive anterior a Ubuntu 16.04
 install zfsutils-linux		# ogLive a partir de Ubuntu 16.04
-# Solo en ogLive basado en Ubuntu 14.04 o posterior
-install android-tools-adb
-install android-tools-fastboot
-install android-tools-fsutils
+install android-tools-adb	# ogLive a partir de Ubuntu 16.04
+install android-tools-fastboot	# ogLive a partir de Ubuntu 16.04
+#install android-tools-fsutils	# ogLive entre Ubuntu 16.04 y Ubuntu 20.04
 install f2fs-tools
